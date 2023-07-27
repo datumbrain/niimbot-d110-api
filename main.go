@@ -5,19 +5,20 @@ import (
 	"bytes"
 	"flag"
 	"fmt"
+	"github.com/golang/freetype"
+	"github.com/golang/freetype/truetype"
 	"github.com/skip2/go-qrcode"
+	"golang.org/x/image/font"
+	"golang.org/x/image/math/fixed"
 	"image"
 	"image/color"
 	"image/draw"
 	"image/png"
 	"log"
 	"os"
+	"os/exec"
+	"runtime"
 	"time"
-
-	"github.com/golang/freetype"
-	"github.com/golang/freetype/truetype"
-	"golang.org/x/image/font"
-	"golang.org/x/image/math/fixed"
 )
 
 var (
@@ -36,6 +37,25 @@ var (
 func main() {
 	parseFlags()
 
+	switch runtime.GOOS {
+	case "linux":
+		fontfile = "/usr/share/fonts/Arial.ttf"
+	case "darwin":
+		fontfile = "/System/Library/Fonts/Supplemental/Arial.ttf"
+	case "windows":
+		fontfile = `C:\Windows\Fonts\Arial.ttf`
+	}
+
+	name := fmt.Sprintf("%d.png", time.Now().UnixMicro())
+	generateImage(name)
+
+	mac := "08:13:F4:C4:34:53"
+	niimprintScript := "niimprint/__main__.py"
+
+	exec.Command("python3", niimprintScript, "-a", mac, name)
+}
+
+func generateImage(name string) {
 	f := readFont()
 
 	fg, bg := image.Black, image.White
@@ -91,7 +111,7 @@ func main() {
 		}
 	}
 
-	saveImage(rgba)
+	saveImage(name, rgba)
 }
 
 func parseFlags() {
@@ -115,10 +135,10 @@ func readFont() *truetype.Font {
 	return f
 }
 
-func saveImage(rgba *image.RGBA) {
+func saveImage(name string, rgba *image.RGBA) {
 	rgba = joinQR(rgba)
 
-	f, err := os.OpenFile(fmt.Sprintf("%d.png", time.Now().UnixMicro()), os.O_CREATE|os.O_WRONLY, 0644)
+	f, err := os.OpenFile(name, os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
 		log.Panic(err)
 	}
