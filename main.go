@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"github.com/skip2/go-qrcode"
 	"image"
+	"image/color"
 	"image/draw"
 	"image/png"
 	"log"
@@ -23,10 +24,10 @@ var (
 	dpi      = 240.0 // "screen resolution in Dots Per Inch"
 	fontfile = "/System/Library/Fonts/Supplemental/Arial.ttf"
 	hinting  = "full" // "none | full"
-	size     = 14.0   // "font size in points"
+	size     = 6.0    // "font size in points"
 	width    = 130    //220    // "image width in points"
 	padding  = 10     // "text left and right padding"
-	height   = 90     // "image height in points"
+	height   = 30     // "image height in points"
 	chars    = 0      //  "chars displayed per line"
 	spacing  = 1.0    // "line spacing"
 	wonb     = false  // "white text on a black background"
@@ -74,7 +75,7 @@ func main() {
 
 	var err error
 
-	for _, x := range []rune("Hello") {
+	for _, x := range []rune("DB23LPTP3") {
 		w, _ := face.GlyphAdvance(x)
 		if x == '\t' {
 			x = ' '
@@ -134,6 +135,8 @@ func saveImage(rgba *image.RGBA) {
 func joinQR(text image.Image) *image.RGBA {
 	qr := getQr()
 
+	return joinImages(qr, text)
+
 	//starting position of the second image (bottom left)
 	sp2 := image.Point{qr.Bounds().Dx(), 0}
 
@@ -153,7 +156,7 @@ func joinQR(text image.Image) *image.RGBA {
 
 func getQr() image.Image {
 	var img []byte
-	img, err := qrcode.Encode("https://example.org", qrcode.Medium, 90)
+	img, err := qrcode.Encode("https://example.org", qrcode.Medium, 60)
 	if err != nil {
 		log.Panic(err)
 	}
@@ -164,4 +167,34 @@ func getQr() image.Image {
 	}
 
 	return imgx
+}
+
+func joinImages(image1, image2 image.Image) *image.RGBA {
+	// Create a new RGBA image with the desired output size (220x90)
+	outputWidth := 220
+	outputHeight := 90
+	output := image.NewRGBA(image.Rect(0, 0, outputWidth, outputHeight))
+
+	// Fill the entire output image with white color
+	draw.Draw(output, output.Bounds(), &image.Uniform{C: color.White}, image.Point{}, draw.Src)
+
+	// Calculate the starting X position to center the two images
+	startX := (outputWidth - image1.Bounds().Dx() - image2.Bounds().Dx()) / 2
+
+	// Calculate the starting Y position to vertically center the images
+	startY := (outputHeight - image1.Bounds().Dy()) / 2
+
+	// Draw the first image onto the output image
+	draw.Draw(output, image.Rect(startX, startY, startX+image1.Bounds().Dx(), startY+image1.Bounds().Dy()), image1, image.Point{}, draw.Over)
+
+	// Calculate the starting X position for the second image
+	startX += image1.Bounds().Dx()
+
+	// Calculate the starting Y position for the second image
+	startY = (outputHeight - image2.Bounds().Dy()) / 2
+
+	// Draw the second image onto the output image
+	draw.Draw(output, image.Rect(startX, startY, startX+image2.Bounds().Dx(), startY+image2.Bounds().Dy()), image2, image.Point{}, draw.Over)
+
+	return output
 }
