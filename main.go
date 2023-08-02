@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
+	"github.com/datumbrain/label-printer/tag"
 	"image"
 	"image/png"
-	"img/tag"
 	"log"
 	"os"
 	"time"

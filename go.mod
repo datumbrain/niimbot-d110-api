@@ -1,4 +1,4 @@
-module img
+module github.com/datumbrain/label-printer
 
 go 1.20
 

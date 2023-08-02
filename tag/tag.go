@@ -2,9 +2,9 @@ package tag
 
 import (
 	"fmt"
+	"github.com/datumbrain/label-printer/qr"
+	"github.com/datumbrain/label-printer/text"
 	"image"
-	"img/qr"
-	"img/text"
 )
 
 type Generator struct {
