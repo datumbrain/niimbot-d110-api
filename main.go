@@ -8,5 +8,5 @@ import (
 func main() {
 	r := gin.Default()
 	r.POST("/print", utils.PrintRequest)
-	r.Run(":8080")
+	r.Run(":7040")
 }
