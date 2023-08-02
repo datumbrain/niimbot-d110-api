@@ -10,25 +10,31 @@ import (
 	"time"
 )
 
-func main() {
-	tg := tag.NewGenerator(90, 220)
+const printerMacAddress = "08:13:F4:C4:34:53"
 
-	img, err := tg.GenerateImage("DB23LPTP3", "https://example.org/%s")
+func main() {
+	err := PrintTag("DB23LPTP3", "https://example.org/%s")
 	if err != nil {
 		log.Fatalln(err)
+	}
+}
+
+func PrintTag(text, qrLinkFormat string) error {
+	tg := tag.NewGenerator(90, 220)
+
+	img, err := tg.GenerateImage(text, qrLinkFormat)
+	if err != nil {
+		return err
 	}
 
 	filename := fmt.Sprintf("%d.png", time.Now().UnixMicro())
 
 	err = saveImageToPng(filename, img)
 	if err != nil {
-		log.Fatalln(err)
+		return err
 	}
 
-	//mac := "08:13:F4:C4:34:53"
-	//niimprintScript := "niimprint/__main__.py"
-	//
-	//exec.Command("python3", niimprintScript, "-a", mac, name)
+	return runPythonScript("./niimprint", "niimprint/__main__.py", "-a", printerMacAddress, filename)
 }
 
 func saveImageToPng(filename string, img image.Image) error {
