@@ -1,7 +1,6 @@
 package tag
 
 import (
-	"fmt"
 	"github.com/datumbrain/label-printer/qr"
 	"github.com/datumbrain/label-printer/text"
 	"image"
@@ -16,11 +15,9 @@ func NewGenerator(height, width int) *Generator {
 	return &Generator{height: height, width: width}
 }
 
-func (g Generator) GenerateImage(tag, qrLinkFormat string) (image.Image, error) {
+func (g Generator) GenerateImage(tag, qrText string) (image.Image, error) {
 	// getting QR image
-	url := fmt.Sprintf(qrLinkFormat, tag)
-
-	qrCode, err := qr.GetImage(url, 60)
+	qrCode, err := qr.GetImage(qrText, 60)
 	if err != nil {
 		return nil, err
 	}
