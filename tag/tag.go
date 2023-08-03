@@ -17,7 +17,7 @@ func NewGenerator(height, width int) *Generator {
 
 func (g Generator) GenerateImage(tag, qrText string) (image.Image, error) {
 	// getting QR image
-	qrCode, err := qr.GetImage(qrText, 60)
+	qrCode, err := qr.GetImage(qrText, 90)
 	if err != nil {
 		return nil, err
 	}
