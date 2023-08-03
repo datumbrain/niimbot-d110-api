@@ -19,7 +19,7 @@ func PrintTag(text, qrText string) error {
 		return err
 	}
 
-	filename := fmt.Sprintf("%d.png", time.Now().UnixMicro())
+	filename := fmt.Sprintf("images/%d.png", time.Now().UnixMicro())
 
 	err = saveImageToPng(filename, img)
 	if err != nil {
