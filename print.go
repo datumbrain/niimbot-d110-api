@@ -12,7 +12,7 @@ import (
 const printerMacAddress = "08:13:F4:C4:34:53"
 
 func PrintTag(text, qrText string) error {
-	tg := tag.NewGenerator(90, 220)
+	tg := tag.NewGenerator(96, 220)
 
 	img, err := tg.GenerateImage(text, qrText)
 	if err != nil {
@@ -26,7 +26,12 @@ func PrintTag(text, qrText string) error {
 		return err
 	}
 
-	return runPythonScript("./niimprint/niimprint/__main__.py", "-a", printerMacAddress, filename)
+	err = runPythonScript("./niimprint/niimprint/__main__.py", "-a", printerMacAddress, filename)
+	if err != nil {
+		return err
+	}
+
+	return os.Remove(filename)
 }
 
 func saveImageToPng(filename string, img image.Image) error {
