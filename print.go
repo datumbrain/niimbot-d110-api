@@ -31,7 +31,7 @@ func PrintTag(text, qrText string) error {
 		return err
 	}
 
-	return os.Remove(filename)
+	return nil // os.Remove(filename)
 }
 
 func saveImageToPng(filename string, img image.Image) error {
