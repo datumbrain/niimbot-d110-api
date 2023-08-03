@@ -7,9 +7,8 @@ import (
 	"os/exec"
 )
 
-func runPythonScript(workingDir string, cmdAndArgs ...string) error {
+func runPythonScript(cmdAndArgs ...string) error {
 	cmd := exec.Command("python3", cmdAndArgs...)
-	cmd.Dir = workingDir
 
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {

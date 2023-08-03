@@ -26,7 +26,7 @@ func PrintTag(text, qrText string) error {
 		return err
 	}
 
-	return runPythonScript("./niimprint", "niimprint/__main__.py", "-a", printerMacAddress, filename)
+	return runPythonScript("./niimprint/niimprint/__main__.py", "-a", printerMacAddress, filename)
 }
 
 func saveImageToPng(filename string, img image.Image) error {
