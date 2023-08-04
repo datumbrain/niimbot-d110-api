@@ -3,3 +3,10 @@
 *.png
 .DS_Store
 images
+
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
