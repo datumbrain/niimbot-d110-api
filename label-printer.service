@@ -1,0 +1,9 @@
+[Unit]
+Description=API to create tag image and print it through Niimbot Printer
+
+[Service]
+WorkingDirectory=/usr/local/label-printer
+ExecStart=/usr/local/label-printer/label-printer
+
+[Install]
+WantedBy=multi-user.target
