@@ -29,9 +29,9 @@ func withLogging(wrappedHandler http.HandlerFunc) http.Handler {
 		t2 := time.Now()
 
 		fmt.Printf("%s\t[HTTP] %s %s [%s] - %s <- %d %s\n",
-			t1.UTC().Format(time.RFC3339), r.Method, r.URL.String(), getTimeDifference(t1, t2), r.RemoteAddr, lrw.statusCode, http.StatusText(lrw.statusCode),
-		)
+			t1.UTC().Format(time.RFC3339), r.Method, r.URL.String(), getTimeDifference(t1, t2), r.RemoteAddr, lrw.statusCode, http.StatusText(lrw.statusCode))
 	})
+
 }
 
 func getTimeDifference(t1, t2 time.Time) string {
