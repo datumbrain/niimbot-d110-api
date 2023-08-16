@@ -20,5 +20,5 @@ An API server to create a tag image for a text and print it through NIIMBOT D110
 ### cURL Example
 
 ```shell
-curl -d '{"text":"MYLABEL", "qr_text":"https://www.example.com/MYLABEL"}' -H "Content-Type: application/json" -u "DatumbrainHQ:password123" -X POST http://localhost:8769/print
+curl -d '{"text":"MYLABEL", "qr_text":"https://www.example.com/MYLABEL"}' -H "Content-Type: application/json" -u "{Username}:{Password}" -X POST http://localhost:8769/print
 ```
