@@ -1,5 +1,6 @@
-
 .idea
 *.png
 .DS_Store
 images
+*.bin
+.env
