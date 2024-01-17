@@ -1,4 +1,6 @@
-# Label Printer
+# NIIMBOT D110 Label Printer API
+
+<img align="right" src="https://github.com/datumbrain/niimbot-d110-api/raw/master/docs/niimbot.png" width="120">
 
 An API server to create a tag image for a text and print it through the NIIMBOT D110 label printer.
 
@@ -10,14 +12,15 @@ An API server to create a tag image for a text and print it through the NIIMBOT 
 
 ## Getting started
 
-- In the `niimprint` directory, run 
-    
-    ```
+- In the `niimprint` directory, run
+
+    ```shell
     pip3 install -r requirements.txt
     ```
+
 - Run golang server
-    
-    ```
+
+    ```shell
     go run .
     ```
 
@@ -41,4 +44,5 @@ curl -d '{"text": "MYLABEL", "qr_text": "https://www.example.com/MYLABEL"}' \
 
 ## Authors
 
-* [Faizan Khalid](https://github.com/IamFaizanKhalid)
+- [Faizan Khalid](https://github.com/IamFaizanKhalid)
+- [Usman Tahir](https://github.com/UsmanT2000)
