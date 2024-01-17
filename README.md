@@ -1,6 +1,6 @@
-# NIIMBOT D110 Label Printer API
-
 <img align="right" src="https://github.com/datumbrain/niimbot-d110-api/raw/master/docs/niimbot.png" width="120">
+
+# NIIMBOT D110 Label Printer API
 
 An API server to create a tag image for a text and print it through the NIIMBOT D110 label printer.
 
